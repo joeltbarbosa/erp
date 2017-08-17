@@ -18,7 +18,7 @@
 
     while ($dados = mysql_fetch_assoc($listar)) {
         ?>
-        <a href="excluir.php?id=<?php echo($dados['id']); ?>">Excluir</a> -
+        <a href="excluir.php?id=<?php echo($dados['id']); ?>">Excluir</a> |
         <a href="alterar.php?id=<?php echo($dados['id']); ?>">Alterar</a> -
             <?php echo 'Fantasia: ' . $dados['nomeFantasia'] . ' Contato: ' . $dados['nomeContato'] . '<br>';
 
