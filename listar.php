@@ -15,13 +15,13 @@ if(isset($_POST['palavra']) != '')
 {
     $palavra = $_POST['palavra'];
     $where = "where nomeFantasia like '%palavra%'
-                or nomeContato like '%palavra%'
-                or atividade like '%palavra%'";
+                   or nomeContato like '%palavra%'";
 }
 else
 {
     $where = '';
 }
+
 #montart a consulta com base na variavel, vai ficar assim:
 # select * from tb-pessoas where nome-pessoa like '%palavra%'
 echo "<br>select * from pessoas $where<br>";
@@ -35,7 +35,7 @@ $listar = mysql_query("select * from pessoas $where") or die("Erro ao listar!");
 
 $contarRegistros = mysql_num_rows($listar);
 echo "Foram encontrados $contarRegistros registros";
-echo '<br>';
+echo "<br>";
 #while ($variavel qualquer = função que pega todos os campo da consulta
 #($variavel da consulta))
 
