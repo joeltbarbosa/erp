@@ -11,14 +11,11 @@
 include('config.php');
 
 #Testtando se o filtro de pesuisa foi preenchido
-if(isset($_POST['palavra']) != '')
-{
+if (isset($_POST['palavra']) != '') {
     $palavra = $_POST['palavra'];
     //Pesquisa por nome de contato e nome fantasia
-    $where = "where nomeContato like '%".$palavra."%' or nomeFantasia like '%".$palavra."%'";
-}
-else
-{
+    $where = "where nomeContato like '%" . $palavra . "%' or nomeFantasia like '%" . $palavra . "%'";
+} else {
     $where = '';
 }
 
@@ -43,13 +40,10 @@ while ($dados = mysql_fetch_assoc($listar)) {
     ?>
     <a href="excluir.php?id=<?php echo($dados['id']); ?>">Excluir</a> |
     <a href="alterar.php?id=<?php echo($dados['id']); ?>">Alterar</a> -
-    <?php echo 'Fantasia: ' . $dados['nomeFantasia'] . ' Contato: ' . $dados['nomeContato'] . ' Telefone: '. $dados['telefone'] . ' Email: ' . $dados['email'] . ' Atividade: ' . $dados['atividade'] . ' Classificação: ' . $dados['classificacao'] . '<br>';
+    <?php echo 'Fantasia: ' . $dados['nomeFantasia'] . ' Contato: ' . $dados['nomeContato'] . ' Telefone: ' . $dados['telefone'] . ' Email: ' . $dados['email'] . ' Atividade: ' . $dados['atividade'] . ' Classificação: ' . $dados['classificacao'] . '<br>';
 
 }
 ?>
-
-
-
 
 
 #formulario de listagem
@@ -107,7 +101,8 @@ while ($dados = mysql_fetch_assoc($listar)) {
                     <td>Picineiro</td>
                     <td>Bom</td>
                     <td>
-                        <a class="btn-floating btn-flat waves-effect waves-light red"><i class="material-icons">delete</i></a>
+                        <a class="btn-floating btn-flat waves-effect waves-light red"><i
+                                class="material-icons">delete</i></a>
                     </td>
                 </tr>
                 <tr>
@@ -118,7 +113,8 @@ while ($dados = mysql_fetch_assoc($listar)) {
                     <td>Pedreiro</td>
                     <td>Bom</td>
                     <td>
-                        <a class="btn-floating btn-flat waves-effect waves-light red"><i class="material-icons">delete</i></a>
+                        <a class="btn-floating btn-flat waves-effect waves-light red"><i
+                                class="material-icons">delete</i></a>
                     </td>
 
                 </tr>
@@ -131,7 +127,8 @@ while ($dados = mysql_fetch_assoc($listar)) {
                     <td>Marceneiro</td>
                     <td>Bom</td>
                     <td>
-                        <a class="btn-floating btn-flat waves-effect waves-light red"><i class="material-icons">delete</i></a>
+                        <a class="btn-floating btn-flat waves-effect waves-light red"><i
+                                class="material-icons">delete</i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -139,9 +136,9 @@ while ($dados = mysql_fetch_assoc($listar)) {
             </table>
         </div>
 
-        <a href="formulario.php" class="btn waves-effect waves-light"><i class="material-icons right">send</i>Novo</a>
-
-
+        <a href="formulario.php" class="btn waves-effect waves-light">
+            <i class="material-icons right">send</i>Novo
+        </a>
 
 
     </form>
