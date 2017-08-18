@@ -1,29 +1,52 @@
+<form action="listar.php" method="post">
+    Buscar<input type="text" name="palavra">
+    <input type="submit" value="Pesquisar">
+</form>
+
 <?php
-    #Iremos listar os registros do banco de dados
-    #O não pode esquecer de fazer ao manipular o banco de dados
-    #Resp = colocar o arquivo de conexao com banco
+#Iremos listar os registros do banco de dados
+#O não pode esquecer de fazer ao manipular o banco de dados
+#Resp = colocar o arquivo de conexao com banco
 
-    include('config.php');
-    #criar uma variavel qualquer para realizar a consulta ao banco
-    $listar = mysql_query("select * from pessoas") or die("Erro ao listar!");
+include('config.php');
 
-    #contar registros
-    #mysql_num_rows retorna o  numero de registro no banco
+#Testtando se o filtro de pesuisa foi preenchido
+if(isset($_POST['palavra']) != '')
+{
+    $palavra = $_POST['palavra'];
+    $where = "where nomeFantasia like '%palavra%'
+                or nomeContato like '%palavra%'
+                or atividade like '%palavra%'";
+}
+else
+{
+    $where = '';
+}
+#montart a consulta com base na variavel, vai ficar assim:
+# select * from tb-pessoas where nome-pessoa like '%palavra%'
+echo "<br>select * from pessoas $where<br>";
 
-    $contarRegistros = mysql_num_rows($listar);
-    echo "Foram encontrados $contarRegistros registros";
-    echo '<br>';
-    #while ($variavel qualquer = função que pega todos os campo da consulta
-    #($variavel da consulta))
+#criar uma variavel qualquer para realizar a consulta ao banco
+$listar = mysql_query("select * from pessoas $where") or die("Erro ao listar!");
+#$listar = mysql_query("select * from pessoas") or die("Erro ao listar!");<---select sem filtro de pesquisa
 
-    while ($dados = mysql_fetch_assoc($listar)) {
-        ?>
-        <a href="excluir.php?id=<?php echo($dados['id']); ?>">Excluir</a> |
-        <a href="alterar.php?id=<?php echo($dados['id']); ?>">Alterar</a> -
-            <?php echo 'Fantasia: ' . $dados['nomeFantasia'] . ' Contato: ' . $dados['nomeContato'] . '<br>';
+#contar registros
+#mysql_num_rows retorna o  numero de registro no banco
 
-        }
-            ?>
+$contarRegistros = mysql_num_rows($listar);
+echo "Foram encontrados $contarRegistros registros";
+echo '<br>';
+#while ($variavel qualquer = função que pega todos os campo da consulta
+#($variavel da consulta))
+
+while ($dados = mysql_fetch_assoc($listar)) {
+    ?>
+    <a href="excluir.php?id=<?php echo($dados['id']); ?>">Excluir</a> |
+    <a href="alterar.php?id=<?php echo($dados['id']); ?>">Alterar</a> -
+    <?php echo 'Fantasia: ' . $dados['nomeFantasia'] . ' Contato: ' . $dados['nomeContato'] . ' Telefone: '. $dados['telefone'] . ' Email: ' . $dados['email'] . ' Atividade: ' . $dados['atividade'] . ' Classificação: ' . $dados['classificacao'] . '<br>';
+
+}
+?>
 
 
 
@@ -62,55 +85,55 @@
                     </div>
                 </div>
                 <thead>
-                    <tr>
-                        <th>Fantasia</th>
-                        <th>Nome Contato</th>
-                        <th>Telefone</th>
-                        <th>Email</th>
-                        <th>Atividade</th>
-                        <th>Classificação</th>
-                        <th>
-                            Remover
-                        </th>
-                    </tr>
+                <tr>
+                    <th>Fantasia</th>
+                    <th>Nome Contato</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Atividade</th>
+                    <th>Classificação</th>
+                    <th>
+                        Remover
+                    </th>
+                </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>RM</td>
-                        <td>Ronaldo</td>
-                        <td>(61) 99999-9999</td>
-                        <td>email@email.com</td>
-                        <td>Picineiro</td>
-                        <td>Bom</td>
-                        <td>
-                            <a class="btn-floating btn-flat waves-effect waves-light red"><i class="material-icons">delete</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>RS</td>
-                        <td>Romino</td>
-                        <td>(61) 99999-9999</td>
-                        <td>email@email.com</td>
-                        <td>Pedreiro</td>
-                        <td>Bom</td>
-                        <td>
-                            <a class="btn-floating btn-flat waves-effect waves-light red"><i class="material-icons">delete</i></a>
-                        </td>
+                <tr>
+                    <td>RM</td>
+                    <td>Ronaldo</td>
+                    <td>(61) 99999-9999</td>
+                    <td>email@email.com</td>
+                    <td>Picineiro</td>
+                    <td>Bom</td>
+                    <td>
+                        <a class="btn-floating btn-flat waves-effect waves-light red"><i class="material-icons">delete</i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>RS</td>
+                    <td>Romino</td>
+                    <td>(61) 99999-9999</td>
+                    <td>email@email.com</td>
+                    <td>Pedreiro</td>
+                    <td>Bom</td>
+                    <td>
+                        <a class="btn-floating btn-flat waves-effect waves-light red"><i class="material-icons">delete</i></a>
+                    </td>
 
-                    </tr>
+                </tr>
 
-                    <tr>
-                        <td>RT</td>
-                        <td>Ataide</td>
-                        <td>(61) 99999-9999</td>
-                        <td>email@email.com</td>
-                        <td>Marceneiro</td>
-                        <td>Bom</td>
-                        <td>
-                            <a class="btn-floating btn-flat waves-effect waves-light red"><i class="material-icons">delete</i></a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>RT</td>
+                    <td>Ataide</td>
+                    <td>(61) 99999-9999</td>
+                    <td>email@email.com</td>
+                    <td>Marceneiro</td>
+                    <td>Bom</td>
+                    <td>
+                        <a class="btn-floating btn-flat waves-effect waves-light red"><i class="material-icons">delete</i></a>
+                    </td>
+                </tr>
                 </tbody>
 
             </table>

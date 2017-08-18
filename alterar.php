@@ -44,7 +44,7 @@ while ($dados = mysql_fetch_assoc($listar))
 
         <div id="container" class="row">
 
-            <form class="col s12" action="atualizar.php" method="post">
+            <form class="col s12" action="atualizar.php?id=<?php echo($dados['id']); ?>" method="post">
 
                 <div class="row">
                     <div class="input-field col s6">
