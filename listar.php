@@ -14,8 +14,8 @@ include('config.php');
 if(isset($_POST['palavra']) != '')
 {
     $palavra = $_POST['palavra'];
-    $where = "where nomeFantasia like '%palavra%'
-                   or nomeContato like '%palavra%'";
+    //Pesquisa por nome de contato e nome fantasia
+    $where = "where nomeContato like '%".$palavra."%' or nomeFantasia like '%".$palavra."%'";
 }
 else
 {
@@ -24,7 +24,7 @@ else
 
 #montart a consulta com base na variavel, vai ficar assim:
 # select * from tb-pessoas where nome-pessoa like '%palavra%'
-echo "<br>select * from pessoas $where<br>";
+#echo "<br>select * from pessoas $where<br>";
 
 #criar uma variavel qualquer para realizar a consulta ao banco
 $listar = mysql_query("select * from pessoas $where") or die("Erro ao listar!");
