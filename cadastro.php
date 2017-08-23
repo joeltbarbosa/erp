@@ -53,5 +53,5 @@ if ($inserirDb = mysql_query("insert into pessoas(nomeFantasia,nomeContato,telef
     header("Location: formulario.php");
 }else
 {
-    echo "Erro ao gravar informações no banco";
+    echo "Erro ao gravar informações no banco de dados";
 }
