@@ -1,153 +1,93 @@
-<form action="listar.php" method="post">
-    Buscar<input type="text" name="palavra">
-    <input type="submit" value="Pesquisar">
-</form>
+    <?php
+    #Iremos listar os registros do banco de dados
+    #O não pode esquecer de fazer ao manipular o banco de dados
+    #Resp = colocar o arquivo de conexao com banco
 
-<?php
-#Iremos listar os registros do banco de dados
-#O não pode esquecer de fazer ao manipular o banco de dados
-#Resp = colocar o arquivo de conexao com banco
+    include('config.php');
 
-include('config.php');
+    #Testtando se o filtro de pesuisa foi preenchido
 
-#Testtando se o filtro de pesuisa foi preenchido
-if (isset($_POST['palavra']) != '') {
-    $palavra = $_POST['palavra'];
-    //Pesquisa por nome de contato e nome fantasia
-    $where = "where nomeContato like '%" . $palavra . "%' or nomeFantasia like '%" . $palavra . "%'";
-} else {
-    $where = '';
-}
+    #montart a consulta com base na variavel, vai ficar assim:
+    # select * from tb-pessoas where nome-pessoa like '%palavra%'
+    #echo "<br>select * from pessoas $where<br>";
 
-#montart a consulta com base na variavel, vai ficar assim:
-# select * from tb-pessoas where nome-pessoa like '%palavra%'
-#echo "<br>select * from pessoas $where<br>";
+    #criar uma variavel qualquer para realizar a consulta ao banco
+    #$listar = mysql_query("select * from pessoas $where") or die("Erro ao listar!");
+    #$listar = mysql_query("select * from pessoas") or die("Erro ao listar!");#<---select sem filtro de pesquisa
 
-#criar uma variavel qualquer para realizar a consulta ao banco
-$listar = mysql_query("select * from pessoas $where") or die("Erro ao listar!");
-#$listar = mysql_query("select * from pessoas") or die("Erro ao listar!");<---select sem filtro de pesquisa
+    #contar registros
+    #mysql_num_rows retorna o  numero de registro no banco
 
-#contar registros
-#mysql_num_rows retorna o  numero de registro no banco
 
-$contarRegistros = mysql_num_rows($listar);
-echo "Foram encontrados $contarRegistros registros";
-echo "<br>";
-#while ($variavel qualquer = função que pega todos os campo da consulta
-#($variavel da consulta))
+    #while ($variavel qualquer = função que pega todos os campo da consulta
+    #($variavel da consulta))
 
-while ($dados = mysql_fetch_assoc($listar)) {
+
     ?>
-    <a href="excluir.php?id=<?php echo($dados['id']); ?>">Excluir</a> |
-    <a href="alterar.php?id=<?php echo($dados['id']); ?>">Alterar</a> -
-    <?php echo 'Fantasia: ' . $dados['nomeFantasia'] . ' Contato: ' . $dados['nomeContato'] . ' Telefone: ' . $dados['telefone'] . ' Email: ' . $dados['email'] . ' Atividade: ' . $dados['atividade'] . ' Classificação: ' . $dados['classificacao'] . '<br>';
-
-}
-?>
 
 
-#formulario de listagem
-<!doctype html>
-<html lang="pt-br">
-<head>
-    <meta charset="utf-8">
-    <title>Listagem</title>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Google fontes-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection"/>
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-</head>
+    <!doctype html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Listagem</title>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Google fontes-->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection"/>
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
 
-<body>
-<h1 align="center">Formulario de listagem</h1>
+    <body>
 
-<div class="row">
-    <form class="col s12" action="#">
-        <div class="row">
-            <table class="striped responsive-table">
-                <legend>ERP v1.0- Lista de Prestador de Serviços</legend>
-                <div class="row">
-                    <div class="input-field col s4">
-                        <i class="material-icons right">search</i>
-                        <label for="pesquisa">Pesquisa</label>
-                        <input type="text" name="pesquisa">
+    <h2 align="center">Formulario de listagem</h2>
 
-                    </div>
-                </div>
-                <thead>
-                <tr>
-                    <th>Fantasia</th>
-                    <th>Nome Contato</th>
-                    <th>Telefone</th>
-                    <th>Email</th>
-                    <th>Atividade</th>
-                    <th>Classificação</th>
-                    <th>
-                        Remover
-                    </th>
-                </tr>
-                </thead>
+    <div class="row">
+        <table class="striped responsive-table" width="100%" border="1" bordercolor="#EEE" cellspacing="0" cellpadding="10">
+            <tr>
+                <th>Fantasia</th>
+                <th>Contato</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Atividade</th>
+                <th>Classificacao</th>
+                <th width="10">Alterar</th>
+                <th width="10">Excluir</th>
+            </tr>
+            <?php
+            include('config.php');
+            $listar = mysql_query("select * from pessoas") or die("Erro ao listar!");
+            while ($campos = mysql_fetch_array($listar)) {?>
 
-                <tbody>
-                <tr>
-                    <td>RM</td>
-                    <td>Ronaldo</td>
-                    <td>(61) 99999-9999</td>
-                    <td>email@email.com</td>
-                    <td>Picineiro</td>
-                    <td>Bom</td>
-                    <td>
-                        <a class="btn-floating btn-flat waves-effect waves-light red"><i
-                                class="material-icons">delete</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>RS</td>
-                    <td>Romino</td>
-                    <td>(61) 99999-9999</td>
-                    <td>email@email.com</td>
-                    <td>Pedreiro</td>
-                    <td>Bom</td>
-                    <td>
-                        <a class="btn-floating btn-flat waves-effect waves-light red"><i
-                                class="material-icons">delete</i></a>
-                    </td>
-
-                </tr>
 
                 <tr>
-                    <td>RT</td>
-                    <td>Ataide</td>
-                    <td>(61) 99999-9999</td>
-                    <td>email@email.com</td>
-                    <td>Marceneiro</td>
-                    <td>Bom</td>
-                    <td>
-                        <a class="btn-floating btn-flat waves-effect waves-light red"><i
-                                class="material-icons">delete</i></a>
-                    </td>
+                    <td><?=$campos['nomeFantasia']?></td>
+                    <td><?=$campos['nomeContato']?></td>
+                    <td><?=$campos['telefone']?></td>
+                    <td><?=$campos['email']?></td>
+                    <td><?=$campos['atividade']?></td>
+                    <td><?=$campos['classificacao']?></td>
+                    <td><a class="btn-floating waves-effect waves-light" href="alterar.php?id=<?php echo($campos['id']); ?>"><i class="material-icons">mode_edit</i></a></td>
+                    <td><a class="btn-floating btn-flat waves-effect waves-light red" href="excluir.php?id=<?php echo($campos['id']); ?>"><i class="material-icons">delete</i></a></td>
                 </tr>
-                </tbody>
 
-            </table>
-        </div>
+            <?php }?>
 
-        <a href="formulario.php" class="btn waves-effect waves-light">
-            <i class="material-icons right">send</i>Novo
-        </a>
+        </table>
+
+    </div>
+
+    <a href="formulario.php" class="btn waves-effect waves-light">
+        <i class="material-icons right">send</i>Novo
+    </a>
 
 
-    </form>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
+    </body>
 
-</div>
-
-<!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
-<script type="text/javascript" src="js/materialize.js"></script>
-</body>
-
-</html>
+    </html>

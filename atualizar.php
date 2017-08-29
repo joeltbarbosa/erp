@@ -55,7 +55,9 @@ if ($_GET['id'] == '') {
         $up = mysql_query("update pessoas set nomeFantasia='$nomeFantasia',nomeContato='$nomeContato',telefone='$telefone',email='$email',atividade='$atividade',classificacao='$classificacao' where id='$id'") or die('Erro ao atualizar');
         echo 'registro atualizado com sucesso';
 
+
     }
 
 
 }
+?>

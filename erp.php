@@ -66,11 +66,14 @@
         </div>
     </nav>
 
-    <aside>
-        asiside
+    <aside style="float: right">
+        aside
+
     </aside>
 
     <section id="sectionCorpo">
+
+
         <h3>Texto H3</h3>
         <article>
             <p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et congue dui.
